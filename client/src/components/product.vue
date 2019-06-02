@@ -156,10 +156,10 @@
     components: {
       EditProduct
     },
-    created() {
-      this.$store.dispatch('product/getCustomer')
-      console.log('the store product   is', this.$store)
-    },
+    // created() {
+    //   this.$store.dispatch('product/getCustomer')
+    //   console.log('the store product   is', this.$store)
+    // },
     data() {
       return {
         dialog: false,

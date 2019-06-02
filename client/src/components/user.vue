@@ -117,11 +117,11 @@
     import {mapState, mapGetters} from 'vuex'
 
     export default {
-      created () {
-        this.$store.dispatch('user/getUser')
-        console.log('the store user   is', this.$store)
-        // this.initialize()
-      },
+      // created () {
+      //   this.$store.dispatch('user/getUser')
+      //   console.log('the store user   is', this.$store)
+      //   // this.initialize()
+      // },
     data() {
       return {
         dialog: false,

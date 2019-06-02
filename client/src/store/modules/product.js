@@ -6,7 +6,8 @@ export default {
 
   state: {
     calculate: [],
-    product: []
+    product: [],
+    newProd:[],
   },
   getters: {
     // product: state => state.product
@@ -18,38 +19,36 @@ export default {
       const stock = state.product.find(item => item.productId === purchase.productId)
       console.log('asked stock in product table', stock.stock)
       console.log('the purchase table quantity', purchase.quantity)
-      // const calculate = (Object.assign({}, stock.stock, purchase.quantity))
-      // const total1 = Object.entries(calculate).reduce((total, product) => total + product.stock - product.quantity, 0)
-      let total1 = parseInt(stock.stock) + parseInt(purchase.quantity)
-      // var tot = integer.parseInt(stock.stock)
-      //  var tot1 = integer.parseInt(purchase.quantity)
-      //  let total = tot - tot1
+      let total1 = parseInt(stock.stock) - parseInt(purchase.quantity)
       console.log('the total stock now is calculated', total1)
-      // console.log('the total stock now is calculated' + total)
-      let newProd = {
-        productId: purchase.productId,
-        productName: purchase.productName,
-        productModel: purchase.productModel,
-        productOffer: purchase.productOffer,
-        cost: purchase.cost,
+       console.log('the product state is' , stock)
+      const newProd = {
+        productId: stock.productId,
+        productName: stock.productName,
+        productModel: stock.productModel,
+        productOffer: stock.productOffer,
+        cost: stock.cost,
         stock: total1,
-        sold: state.product.sold,
-        balance: state.product.balance
+        sold: stock.sold,
+        balance: stock.balance
       }
+      console.log('the new product after redusing stock',newProd)
       Vue.axios.put('/product/' + purchase.productId, newProd)
         .then((resp) => {
           console.log('The Upadating Record from axios Is:', resp)
           commit('updateProductInState', newProd)
+          dispatch('getCustomer')
           console.log('iam entering store to make changes')
         })
     },
     saveProduct({commit, dispatch, state, rootState}, product) {
       // Add product to the database
-      console.log('the new product entered is:', state.product.productId)
+      console.log('iam entering to check it exit or not')
       const stock = state.product.find(item => item.productId === product.productId)
       if (stock) {
-        console.log('the old product in store is', stock)
-        const newStock = stock + product.stock
+        console.log('the  store stock  is:', stock.stock)
+        console.log('the new stock entered is:', product.stock)
+        const newStock = parseInt(stock.stock) + parseInt(product.stock)
         console.log('the new calculated stock is', newStock)
         let newProduct = {
           productId: product.productId,
@@ -58,14 +57,22 @@ export default {
           productOffer: product.productOffer,
           cost: product.cost,
           stock: newStock,
-          sold: state.product.sold,
-          balance: state.product.balance
+          sold: product.sold,
+          balance: product.balance
         }
         console.log('the new product is', newProduct)
         console.log('Product Already Exists')
         Vue.axios.put('/product/' + product.productId, newProduct)
-        commit('updateProductInState', newproduct)
-        alert('This product already exist \n' + product.productId)
+          .then((resp) => {
+            console.log('The Upadating only stock Record from axios Is:', resp)
+            commit('updateProductInState', newProduct)
+            dispatch('getCustomer')
+            console.log('iam entering store to make changes')
+          })
+          .catch((err) => {
+            console.log('Error Updating product')
+            console.log(err)
+          })
       } else {
         Vue.axios.post('/product', product)
           .then((resp) => {

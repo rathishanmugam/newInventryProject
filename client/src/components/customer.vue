@@ -124,10 +124,10 @@
     components: {
       EditCustomer
     },
-    created() {
-      this.$store.dispatch('customer/getCustomer')
-      console.log('the store customer   is', this.$store)
-    },
+    // created() {
+    //   this.$store.dispatch('customer/getCustomer')
+    //   console.log('the store customer   is', this.$store)
+    // },
     data() {
       return {
         dialog: false,

@@ -35,8 +35,16 @@
 </template>
 
 <script>
+  import {mapState, mapGetters} from 'vuex'
+
   export default {
-    name: 'App'
+    name: 'App',
+    created() {
+      this.$store.dispatch('purchase/getPurchase'),
+        this.$store.dispatch('user/getUser'),
+        this.$store.dispatch('product/getCustomer'),
+        this.$store.dispatch('customer/getCustomer')
+    }
   }
 </script>
 

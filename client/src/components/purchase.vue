@@ -28,6 +28,7 @@
               <v-text-field
                 slot='input'
                 label='Edit'
+                type="text"
                 v-model='props.item.purchaseNo'
                 single-line
               ></v-text-field>
@@ -41,6 +42,7 @@
               <v-text-field
                 slot='input'
                 label='Edit'
+                type="text"
                 v-model='props.item.productId'
                 single-line
               ></v-text-field>
@@ -53,6 +55,7 @@
               <v-text-field
                 slot='input'
                 label='Edit'
+                type="text"
                 v-model='props.item.customerName'
                 single-line
               ></v-text-field>
@@ -65,6 +68,7 @@
               <v-text-field
                 slot='input'
                 label='Edit'
+                type="text"
                 v-model='props.item.purchaseItem'
                 single-line
               ></v-text-field>
@@ -77,7 +81,8 @@
               <v-text-field
                 slot='input'
                 label='Edit'
-                v-model='props.item.quantity'
+                type="number"
+                v-model.number='props.item.quantity'
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -89,7 +94,8 @@
               <v-text-field
                 slot='input'
                 label='Edit'
-                v-model='props.item.rate'
+                type="number"
+                v-model.number='props.item.rate'
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -101,7 +107,8 @@
               <v-text-field
                 slot='input'
                 label='Edit'
-                v-model='props.item.offer'
+                type="number"
+                v-model.number='props.item.offer'
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -159,10 +166,10 @@
     components: {
       EditPurchase
     },
-    created() {
-      this.$store.dispatch('purchase/getPurchase')
-      console.log('the store purchase   is', this.$store)
-    },
+    // created() {
+    //   this.$store.dispatch('purchase/getPurchase')
+    //   console.log('the store purchase   is', this.$store)
+    // },
     data() {
       return {
         dialog: false,
