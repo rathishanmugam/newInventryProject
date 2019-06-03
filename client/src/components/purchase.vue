@@ -30,6 +30,8 @@
                 label='Edit'
                 type="text"
                 v-model='props.item.purchaseNo'
+                :counter="2" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -44,6 +46,8 @@
                 label='Edit'
                 type="text"
                 v-model='props.item.productId'
+                :counter="2" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -57,6 +61,8 @@
                 label='Edit'
                 type="text"
                 v-model='props.item.customerName'
+                :counter="5" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -70,6 +76,8 @@
                 label='Edit'
                 type="text"
                 v-model='props.item.purchaseItem'
+                :counter="3" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -166,13 +174,17 @@
     components: {
       EditPurchase
     },
-    // created() {
-    //   this.$store.dispatch('purchase/getPurchase')
-    //   console.log('the store purchase   is', this.$store)
-    // },
+    created() {
+      this.$store.dispatch('purchase/getPurchase')
+      console.log('the store purchase   is', this.$store)
+    },
     data() {
       return {
         dialog: false,
+        nameRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+        ],
         purchaseDatePicker: false,
         search: '',
         pagination: {},
@@ -206,6 +218,7 @@
       // ...mapGetters('purchase', {})
     },
     methods: {
+
       editItem(item) {
         // this.editedIndex = this.items.indexOf(item)
         // this.editedItem = Object.assign({}, item)

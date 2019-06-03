@@ -29,6 +29,8 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.productId'
+                :counter="3" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -39,6 +41,8 @@
 
               v-bind:items='productname'
               v-model='props.item.productName'
+
+
               single-line
               bottom
             ></v-select>
@@ -51,6 +55,8 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.productModel'
+                :counter="3" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -63,6 +69,8 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.productOffer'
+                :counter="10" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -75,6 +83,7 @@
                 slot='input'
                 label='Edit'
                 v-model.number='props.item.cost'
+                type="number"
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -87,6 +96,7 @@
                 slot='input'
                 label='Edit'
                 v-model.number='props.item.stock'
+                type="number"
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -99,6 +109,7 @@
                 slot='input'
                 label='Edit'
                 v-model.number='props.item.sold'
+                type="number"
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -111,6 +122,7 @@
                 slot='input'
                 label='Edit'
                 v-model.number='props.item.balance'
+                type="number"
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -156,13 +168,17 @@
     components: {
       EditProduct
     },
-    // created() {
-    //   this.$store.dispatch('product/getCustomer')
-    //   console.log('the store product   is', this.$store)
-    // },
+    created() {
+      this.$store.dispatch('product/getCustomer')
+      console.log('the store product   is', this.$store)
+    },
     data() {
       return {
         dialog: false,
+        nameRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+        ],
         max25chars: (v) => v.length <= 25 || 'Input too long!',
         search: '',
         pagination: {},
@@ -194,6 +210,7 @@
       ...mapGetters('product', {})
     },
     methods: {
+
       editItem(item) {
         // this.editedIndex = this.items.indexOf(item)
         // this.editedItem = Object.assign({}, item)

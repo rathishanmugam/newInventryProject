@@ -25,6 +25,8 @@
                 prepend-icon="description"
                 placeholder="Enter customer Id"
                 v-model="customer.customerId"
+                :counter="3" required :rules="nameRules"
+
                 required
               ></v-text-field>
             </v-flex>
@@ -33,6 +35,8 @@
                 prepend-icon="description"
                 placeholder="Enter Customer Name"
                 v-model="customer.customerName"
+                :counter="10" required :rules="nameRules"
+
                 required
               ></v-text-field>
             </v-flex>
@@ -41,6 +45,7 @@
                 prepend-icon="description"
                 placeholder="Enter Customer Phone No"
                 v-model="customer.phoneNo"
+                type="number"
                 required
               ></v-text-field>
             </v-flex>
@@ -49,7 +54,7 @@
                 prepend-icon="description"
                 placeholder="Enter Customer Address"
                 v-model="customer.address"
-                required
+                :counter="10" required :rules="nameRules"
               ></v-text-field>
             </v-flex>
             <v-flex xs6>
@@ -57,7 +62,7 @@
                 prepend-icon="remove_circle"
                 label="E-mail"
                 v-model="customer.email"
-                v-bind:rules="emailRules"
+                :rules="emailRules"
                 required>
               </v-text-field>
             </v-flex>
@@ -84,6 +89,11 @@
         phoneNo: '',
         email: ''
       },
+      email: '',
+      nameRules: [
+        (v) => !!v || 'Name is required',
+        (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+      ],
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
@@ -92,7 +102,7 @@
     methods: {
       saveCustomer: function () {
         console.log('Saving customer record:', this.customer)
-        this.$store.dispatch('saveCustomer', this.customer)
+        this.$store.dispatch('customer/saveCustomer', this.customer)
         this.dialog = false
       },
       showEditCustomerDialog: function () {

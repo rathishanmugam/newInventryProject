@@ -52,6 +52,8 @@
                 prepend-icon="description"
                 placeholder="purchase No"
                 v-model="purchase.purchaseNo"
+                :counter="3" required :rules="nameRules"
+
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
@@ -59,6 +61,8 @@
                 prepend-icon="description"
                 placeholder="Product Id"
                 v-model="purchase.productId"
+                :counter="3" required :rules="nameRules"
+
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
@@ -66,6 +70,8 @@
                 prepend-icon="description"
                 placeholder="Customer Name"
                 v-model="purchase.customerName"
+                :counter="5" required :rules="nameRules"
+
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
@@ -73,12 +79,15 @@
                 prepend-icon="description"
                 placeholder="Purchase Item"
                 v-model="purchase.purchaseItem"
+                :counter="3" required :rules="nameRules"
+
               ></v-text-field>
             </v-flex>
             <v-flex xs6>
               <v-text-field
                 prepend-icon="remove_circle"
                 label="quantity"
+                type="number"
                 v-model="purchase.quantity"
               ></v-text-field>
             </v-flex>
@@ -87,6 +96,7 @@
                 prepend-icon="add_circle"
                 label="rate "
                 v-model="purchase.rate"
+                type="number"
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
@@ -94,6 +104,7 @@
                 prepend-icon="message"
                 label="offer"
                 v-model="purchase.offer"
+                type="number"
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -113,6 +124,10 @@
     name: 'EditTransaction',
     data: () => ({
       dialog: false,
+      nameRules: [
+        (v) => !!v || 'Name is required',
+        (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+      ],
       purchase: {
         purchaseNo: null,
         purchaseDate: null,
@@ -132,6 +147,7 @@
       purchaseDatePicker: false
     }),
     methods: {
+
       saveTransaction: function () {
         console.log('Saving purchase record:', this.purchase)
         this.$store.dispatch('purchase/savePurchase', this.purchase)

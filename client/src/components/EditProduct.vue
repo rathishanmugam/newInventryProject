@@ -25,7 +25,7 @@
                 prepend-icon="description"
                 placeholder="Enter product Id"
                 v-model.number="product.productId"
-                required
+                :counter="3" required :rules="nameRules"
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
@@ -33,6 +33,8 @@
                 prepend-icon="credit_card"
                 placeholder="Select product Id"
                 v-bind:items="productname"
+                :rules="[(v) => !!v || 'Product Name is required']"
+                required
                 v-model="product.productName"
                 single-line
                 bottom
@@ -42,6 +44,8 @@
               <v-text-field
                 prepend-icon="description"
                 placeholder="Enter product Model"
+                :counter="3" required :rules="nameRules"
+
                 v-model="product.productModel"
                 required
               ></v-text-field>
@@ -51,6 +55,7 @@
                 prepend-icon="description"
                 placeholder="select product Offer"
                 v-model="product.productOffer"
+                :counter="3" required :rules="nameRules"
                 required
               ></v-text-field>
             </v-flex>
@@ -59,6 +64,7 @@
                 prepend-icon="remove_circle"
                 label="cost"
                 v-model.number="product.cost"
+                type="number"
                 required
               ></v-text-field>
             </v-flex>
@@ -67,6 +73,7 @@
                 prepend-icon="add_circle"
                 label="stock"
                 v-model.number="product.stock"
+                type="number"
                 required
               ></v-text-field>
             </v-flex>
@@ -75,6 +82,7 @@
                 prepend-icon="add_circle"
                 label="sold"
                 v-model.number="product.sold"
+                type="number"
                 required
               ></v-text-field>
             </v-flex>
@@ -83,6 +91,7 @@
                 prepend-icon="add_circle"
                 label="balance"
                 v-model.number="product.balance"
+                type="number"
                 required
               ></v-text-field>
             </v-flex>
@@ -113,6 +122,10 @@
         sold: 0,
         balance: 0
       },
+      nameRules: [
+        (v) => !!v || 'Name is required',
+        (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+      ],
       productname: [
         {text: 'LG', value: 'LG'},
         {text: 'Sony', value: 'Sony'},

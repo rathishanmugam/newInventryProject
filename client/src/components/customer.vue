@@ -29,6 +29,8 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.customerId'
+                :counter="3" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -42,6 +44,8 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.customerName'
+                :counter="5" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -54,6 +58,7 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.phoneNo'
+                type="number"
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -66,6 +71,8 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.address'
+                :counter="5" required :rules="nameRules"
+
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -78,6 +85,7 @@
                 slot='input'
                 label='Edit'
                 v-model='props.item.email'
+                required :rules="emailRules"
                 single-line
               ></v-text-field>
             </v-edit-dialog>
@@ -124,15 +132,24 @@
     components: {
       EditCustomer
     },
-    // created() {
-    //   this.$store.dispatch('customer/getCustomer')
-    //   console.log('the store customer   is', this.$store)
-    // },
+    created() {
+      this.$store.dispatch('customer/getCustomer')
+      console.log('the store customer   is', this.$store)
+    },
     data() {
       return {
         dialog: false,
         search: '',
         pagination: {},
+        email: '',
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+        ],
+        nameRules: [
+          (v) => !!v || 'Name is required',
+          (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
+        ],
         headers: [
           {text: 'CustomerId', align: 'center', sortable: true, value: 'customerId'},
           {text: 'CustomerName', align: 'center', sortable: true, value: 'customerName'},
@@ -160,6 +177,7 @@
       // ...mapGetters('customer', {})
     },
     methods: {
+
       editItem(item) {
         // this.editedIndex = this.items.indexOf(item)
         // this.editedItem = Object.assign({}, item)
@@ -175,7 +193,7 @@
         console.log('deleting  item', item)
 
         confirm('Are you sure you want to delete this item? ')  //&& this.items.splice(index, 1)
-        this.$store.dispatch('user/deleteCustomer', item)
+        this.$store.dispatch('customer/deleteCustomer', item)
 
       }
 
