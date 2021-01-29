@@ -4,8 +4,6 @@ const mongoose = require('mongoose')
 // Get all customer from database
 module.exports = function (router) {
     router.get('/customer', function (req, res) {
-        console.log("customer id|:" +customer)
-
         customer.find().exec()
             .then(docs => res.status(200)
                 .json(docs))
@@ -44,13 +42,15 @@ module.exports = function (router) {
     router.put('/customer/:customerId', function (req, res) {
         console.log('the updating full record is ' , req.body)
         let qry = {customerId: req.params.customerId}
-        let doc = {
-            customerId:req.body.customerId,
-            customerName: req.body.customerName,
-            phoneNo: req.body.phoneNo,
-            address: req.body.address,
-            email: req.body.email
-        }
+        const doc = { customerId, customerName, phoneNo, address, email } = req.body
+
+        // let doc = {
+        //     customerId:req.body.customerId,
+        //     customerName: req.body.customerName,
+        //     phoneNo: req.body.phoneNo,
+        //     address: req.body.address,
+        //     email: req.body.email
+        // }
         console.log('the here iam updating record is :', doc)
         customer.updateOne(qry, doc, function (err, respRaw) {
             if (err) return console.log(err)

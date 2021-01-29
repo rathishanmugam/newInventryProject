@@ -38,6 +38,7 @@
   </div>
 </template>
 
+
 <script>
   const app = new Vue({
     el:'#app',
@@ -63,7 +64,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js Application'
     }
   }
 }

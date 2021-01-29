@@ -71,18 +71,20 @@ module.exports = function (router) {
 
     // Update product document...
     router.put('/product/:productId', function (req, res) {
-        console.log('update record body is:', req.body)
+        // console.log('update record body is:', req.body)
         let qry = {productId: req.params.productId}
-        let doc = {
-            productId: req.body.productId,
-            productName: req.body.productName,
-            productModel: req.body.productModel,
-            productOffer: req.body.productOffer,
-            cost: req.body.cost,
-            stock: req.body.stock,
-            sold: req.body.sold,
-            balance: req.body.balance
-        }
+        const doc = { productId, productName, productModel, productOffer, cost, stock ,sold ,balance} = req.body
+
+        // let doc = {
+        //     productId: req.body.productId,
+        //     productName: req.body.productName,
+        //     productModel: req.body.productModel,
+        //     productOffer: req.body.productOffer,
+        //     cost: req.body.cost,
+        //     stock: req.body.stock,
+        //     sold: req.body.sold,
+        //     balance: req.body.balance
+        // }
         console.log('the updating record is :', doc)
         Product.updateOne(qry, doc, function (err, respRaw) {
             if (err) return console.log(err)

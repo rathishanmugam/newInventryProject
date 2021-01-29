@@ -72,18 +72,20 @@ console.log('the query is' ,qry)
     router.put('/purchase/:purchaseNo', function (req, res) {
         console.log(req.body)
         let qry = { purchaseNo: req.params.purchaseNo }
-        let doc = {
-            productId: req.body.productId,
-            customerName: req.body.customerName,
-            purchaseItem: req.body.purchaseItem,
-            purchaseNo: req.body.purchaseNo,
-            quantity: req.body.quantity,
-            rate: req.body.rate,
-            offer: req.body.offer,
-            // paymentType: req.body.paymentType,
-            paid: req.body.paid,
-            purchaseDate: req.body.purchaseDate
-        }
+        const doc = { productId, customerName, purchaseItem, purchaseNo, quantity, rate ,offer ,paid ,purchaseDate} = req.body
+
+        // let doc = {
+        //     productId: req.body.productId,
+        //     customerName: req.body.customerName,
+        //     purchaseItem: req.body.purchaseItem,
+        //     purchaseNo: req.body.purchaseNo,
+        //     quantity: req.body.quantity,
+        //     rate: req.body.rate,
+        //     offer: req.body.offer,
+        //     // paymentType: req.body.paymentType,
+        //     paid: req.body.paid,
+        //     purchaseDate: req.body.purchaseDate
+        // }
         console.log('the updating record is :' , doc)
         Purchase.updateOne(qry, doc, function (err, respRaw) {
             if (err) return console.log(err)

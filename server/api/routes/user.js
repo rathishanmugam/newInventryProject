@@ -2,8 +2,6 @@ const User = require('../../models/user')
 
 module.exports = function (router) {
   router.get('/user', function (req, res) {
-      console.log('the request body is:' ,req.body)
-
       User.find().exec()
         .then(docs => res.status(200)
             .json(docs))
@@ -47,13 +45,15 @@ module.exports = function (router) {
   router.put('/user/:id', function (req, res) {
     console.log('update record', req.body)
     let qry = { _id: req.params.id }
-    let doc = {
-      first: req.body.first,
-      last: req.body.last,
-      email: req.body.email,
-      password: req.body.password,
-      isActive: req.body.isActive
-    }
+      const doc = { first, last, email, password, isActive } = req.body
+
+    //   let doc = {
+    //   first: req.body.first,
+    //   last: req.body.last,
+    //   email: req.body.email,
+    //   password: req.body.password,
+    //   isActive: req.body.isActive
+    // }
     console.log(doc)
     User.update(qry, doc, function (err, respRaw) {
       if (err) return console.log(err)

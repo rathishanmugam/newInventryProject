@@ -231,7 +231,7 @@
 
       deleteItem(item) {
         // const index = this.items.indexOf(item)
-        console.log('deleting  item', item)
+        // console.log('deleting  item', item)
 
         confirm('Are you sure you want to delete this item? ')  //&& this.items.splice(index, 1)
         this.$store.dispatch('purchase/deletePurchase', item)
